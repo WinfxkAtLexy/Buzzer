@@ -99,8 +99,10 @@ class ClientHandler : ChannelInboundHandlerAdapter() {
     override fun channelInactive(ctx: ChannelHandlerContext?) {
         isRunning = false;
         super.channelInactive(ctx)
-        log.w("链接失效！正在尝试重连..")
         NettyClient.getMain().getGroup().shutdownGracefully();
-        NettyClient.getMain().reconnect()
+        if (cn.winfxk.lexy.z1.isRunning) {
+            log.w("链接失效！正在尝试重连..")
+            NettyClient.getMain().reconnect()
+        }else log.i("关闭与服务器的链接")
     }
 }

@@ -15,13 +15,21 @@
 * Created Date: 2024/12/5  17:17 */
 package cn.winfxk.lexy.z1.ui.cp.call.technology
 
-import cn.winfxk.lexy.z1.ui.FilletedPanel
-import cn.winfxk.tool.view.MyJPanel
+import cn.winfxk.lexy.z1.ui.cp.call.Section
+import java.awt.Color
 
 /**
  * 工艺
  */
-class Technology : FilletedPanel() {
-    override fun start() {
+class Technology : Section() {
+    companion object {
+        private val c = Color(255, 50, 50);
+    }
+
+    override fun getColor() = c;
+    override fun getString() = "呼叫工艺"
+    override fun getStringColor(): Color = Color.white;
+    override fun onClick() {
+        println("A")
     }
 }

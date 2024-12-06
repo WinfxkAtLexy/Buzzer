@@ -15,10 +15,18 @@
 * Created Date: 2024/12/5  17:19 */
 package cn.winfxk.lexy.z1.ui.cp.call.ie
 
-import cn.winfxk.lexy.z1.ui.FilletedPanel
-import cn.winfxk.tool.view.MyJPanel
+import cn.winfxk.lexy.z1.ui.cp.call.Section
+import java.awt.Color
 
-class IE : FilletedPanel() {
-    override fun start() {
+class IE : Section() {
+    companion object {
+        private val color = Color(50, 255, 255);
+    }
+
+    override fun getColor() = color;
+    override fun getString() = "呼叫设备"
+    override fun getStringColor(): Color = Color.BLACK;
+    override fun onClick() {
+        println("A")
     }
 }

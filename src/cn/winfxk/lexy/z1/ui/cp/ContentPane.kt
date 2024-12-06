@@ -35,5 +35,21 @@ class ContentPane : MyJPanel() {
     }
 
     override fun start() {
+        val itemWidth = width / 8;
+        val itemHeighe = height / 5 * 4;
+        val itemX = (width - itemWidth * 4) / 5;
+        val itemY = height / 2 - itemHeighe / 2;
+        technology.setSize(itemWidth, itemHeighe);
+        technology.setLocation(itemX, itemY);
+        technology.start();
+        ie.size = technology.size;
+        ie.setLocation(technology.x + technology.width + itemX, technology.y);
+        ie.start();
+        warehouse.size = technology.size;
+        warehouse.setLocation(ie.x + ie.width + itemX, ie.y);
+        warehouse.start();
+        iqc.size = technology.size;
+        iqc.setLocation(warehouse.x + warehouse.width + itemX, warehouse.y);
+        iqc.start();
     }
 }

@@ -15,13 +15,21 @@
 * Created Date: 2024/12/5  17:18 */
 package cn.winfxk.lexy.z1.ui.cp.call.iqc
 
-import cn.winfxk.lexy.z1.ui.FilletedPanel
-import cn.winfxk.tool.view.MyJPanel
+import cn.winfxk.lexy.z1.ui.cp.call.Section
+import java.awt.Color
 
 /**
  * 质量
  */
-class IQC : FilletedPanel() {
-    override fun start() {
+class IQC : Section() {
+    companion object {
+        private val color = Color(235, 235, 50);
+    }
+
+    override fun getColor() = color;
+    override fun getString() = "呼叫质量"
+    override fun getStringColor(): Color = Color.RED;
+    override fun onClick() {
+        println("A")
     }
 }

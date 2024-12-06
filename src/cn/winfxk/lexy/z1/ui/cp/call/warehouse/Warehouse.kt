@@ -16,12 +16,22 @@
 package cn.winfxk.lexy.z1.ui.cp.call.warehouse
 
 import cn.winfxk.lexy.z1.ui.FilletedPanel
+import cn.winfxk.lexy.z1.ui.cp.call.Section
 import cn.winfxk.tool.view.MyJPanel
+import java.awt.Color
 
 /**
  * 仓库
  */
-class Warehouse : FilletedPanel() {
-    override fun start() {
+class Warehouse :  Section() {
+    companion object {
+        private val color = Color(255, 50, 255);
+    }
+
+    override fun getColor() = color;
+    override fun getString() = "呼叫仓库"
+    override fun getStringColor(): Color = Color.white;
+    override fun onClick() {
+        println("A")
     }
 }
