@@ -12,26 +12,20 @@
 * Author： Winfxk
 * Created PCUser: kc4064 
 * Web: http://winfxk.com
-* Created Date: 2024/12/5  17:18 */
-package cn.winfxk.lexy.z1.ui.cp.call.warehouse
+* Created Date: 2024/12/5  17:17 */
+package cn.winfxk.lexy.z1.ui.cp.call
 
-import cn.winfxk.lexy.z1.ui.FilletedPanel
-import cn.winfxk.lexy.z1.ui.cp.call.Section
-import cn.winfxk.tool.view.MyJPanel
 import java.awt.Color
 
 /**
- * 仓库
+ * 工艺
  */
-class Warehouse :  Section() {
+class Technology : Section() {
     companion object {
-        private val color = Color(255, 50, 255);
+        private val c = Color(255, 50, 50);
     }
 
-    override fun getColor() = color;
-    override fun getString() = "呼叫仓库"
+    override fun getColor() = c;
+    override fun getString() = "呼叫工艺"
     override fun getStringColor(): Color = Color.white;
-    override fun onClick() {
-        println("A")
-    }
 }

@@ -68,6 +68,7 @@ class Deploy {
     private lateinit var icon: BufferedImage;
     private lateinit var SettingIcon: BufferedImage;
     private lateinit var close: BufferedImage;
+    private lateinit var call: BufferedImage;
 
 
     companion object {
@@ -85,6 +86,7 @@ class Deploy {
         icon = this.getImageByjar("Icon.png") ?: throwException("无法加载资源：Icon.png");
         close = this.getImageByjar("close.png") ?: throwException("无法加载资源：close.png");
         SettingIcon = this.getImageByjar("SettingIcon.png") ?: throwException("无法加载资源：SettingIcon.png");
+        call = this.getImageByjar("Call.png") ?: throwException("无法加载资源：Call.png");
         Thread {
             log.i("配置文件守护服务启动.")
             while (isRunning) {
@@ -99,6 +101,9 @@ class Deploy {
     fun getCloseIcon() = close;
     fun getSettingIcon() = SettingIcon;
     fun getIcon() = icon;
+    fun getCallIcon() = call;
+
+
     class MyFont {
         private val log by lazy { Log(this.javaClass.simpleName) }
         val hwct = this.getStreamByJar("hwct.ttf".also { log.i("加载字体资源：$it") })?.readFont() ?: throwException("hwct.ttf");

@@ -12,24 +12,24 @@
 * Author： Winfxk
 * Created PCUser: kc4064 
 * Web: http://winfxk.com
-* Created Date: 2024/12/5  17:18 */
-package cn.winfxk.lexy.z1.ui.cp.call.iqc
+* Created Date: 2024/12/7  10:29 */
+package cn.winfxk.lexy.z1.ui.cp.call.ps
 
-import cn.winfxk.lexy.z1.ui.cp.call.Section
-import java.awt.Color
+import cn.winfxk.lexy.z1.Deploy
+import cn.winfxk.tool.view.MyJPanel
+import cn.winfxk.tool.view.image.ImageView
 
-/**
- * 质量
- */
-class IQC : Section() {
-    companion object {
-        private val color = Color(235, 235, 50);
+class Closeview(private val main: PositionSelection) : MyJPanel() {
+    private val close = ImageView(Deploy.deploy.getCloseIcon());
+
+    init {
+        close.setOnClick { main.close(); }
+        add(close);
     }
 
-    override fun getColor() = color;
-    override fun getString() = "呼叫质量"
-    override fun getStringColor(): Color = Color.RED;
-    override fun onClick() {
-        println("A")
+    override fun start() {
+        close.setSize(height, height)
+        close.setLocation(width - height, 0)
+        close.start();
     }
 }

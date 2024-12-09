@@ -15,10 +15,10 @@
 * Created Date: 2024/12/5  13:20 */
 package cn.winfxk.lexy.z1.ui.cp
 
-import cn.winfxk.lexy.z1.ui.cp.call.ie.IE
-import cn.winfxk.lexy.z1.ui.cp.call.iqc.IQC
-import cn.winfxk.lexy.z1.ui.cp.call.technology.Technology
-import cn.winfxk.lexy.z1.ui.cp.call.warehouse.Warehouse
+import cn.winfxk.lexy.z1.ui.cp.call.IE
+import cn.winfxk.lexy.z1.ui.cp.call.IQC
+import cn.winfxk.lexy.z1.ui.cp.call.Technology
+import cn.winfxk.lexy.z1.ui.cp.call.Warehouse
 import cn.winfxk.tool.view.MyJPanel
 
 class ContentPane : MyJPanel() {

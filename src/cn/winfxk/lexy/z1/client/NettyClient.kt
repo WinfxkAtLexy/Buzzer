@@ -49,14 +49,14 @@ class NettyClient(private val start: Start) : ChannelInitializer<Channel>(), Aut
     private var isConnected = false;
     fun isConnected() = isConnected;
     fun isRunning(): Boolean = isRunning;
-    fun sendMessage(message: Message, response: OnMessageResponse? = null) {
+    fun sendMessage(message: Message, isPrintlog: Boolean = true, response: OnMessageResponse? = null) {
         val msg = message.toString();
         if (message.getType().equals(MessageType.Request) && response != null) {
-            log.i("正在发送消息并等待回执[${message.getID()}][${msg.length}]..")
+            if (isPrintlog) log.i("正在发送消息并等待回执[${message.getID()}][${msg.length}]..")
             addResponse(message.getID(), response);
-        } else if (message.getType() == MessageType.Response)
-            Log.i("正在回复消息[${message.getID()}][${msg.length}]..")
-        else if (message.getType() != MessageType.Live) Log.i("正在发送消息[${message.getID()}][${msg.length}]..")
+        } else if (message.getType() == MessageType.Response) {
+            if (isPrintlog) Log.i("正在回复消息[${message.getID()}][${msg.length}]..")
+        } else if (message.getType() != MessageType.Live) if (isPrintlog) Log.i("正在发送消息[${message.getID()}][${msg.length}]..")
         channel.writeAndFlush(msg)
     }
 
@@ -143,8 +143,8 @@ class NettyClient(private val start: Start) : ChannelInitializer<Channel>(), Aut
             Thread {
                 for (i in 0 .. exit) {
                     Tool.sleep(1000);
-                    log.e("无法连接至服务器！程序将在${exit-i}秒后退出！")
-                    if (start.isVisible) start.title = "无法连接至服务器！程序将在${exit-i}秒后退出！"
+                    log.e("无法连接至服务器！程序将在${exit - i}秒后退出！")
+                    if (start.isVisible) start.title = "无法连接至服务器！程序将在${exit - i}秒后退出！"
                 }
                 close(- 1)
             }.start()

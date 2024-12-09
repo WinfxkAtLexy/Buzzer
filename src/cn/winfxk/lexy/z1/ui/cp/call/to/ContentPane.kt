@@ -12,12 +12,11 @@
 * Author： Winfxk
 * Created PCUser: kc4064 
 * Web: http://winfxk.com
-* Created Date: 2024/12/6  10:22 */
-package cn.winfxk.lexy.z1.ui.cp.call
+* Created Date: 2024/12/7  14:51 */
+package cn.winfxk.lexy.z1.ui.cp.call.to
 
-import cn.winfxk.lexy.z1.ui.FilletedPanel
-import cn.winfxk.lexy.z1.ui.GUI
-import cn.winfxk.lexy.z1.ui.cp.call.ps.PositionSelection
+import cn.winfxk.lexy.z1.Deploy
+import cn.winfxk.tool.view.MyJPanel
 import cn.winfxk.tool.view.toCenter
 import java.awt.Color
 import java.awt.Font
@@ -25,48 +24,45 @@ import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import javax.swing.JLabel
 
-abstract class Section() : FilletedPanel(), MouseListener {
-    private val label = JLabel(getString().let {
-        var text = "";
-        for (element in it) text = text + (if (text.isBlank()) "" else "<br>") + element.toString();
-        return@let "<html>$text</html>"
-    });
+class ContentPane(private val main: Callto) : MyJPanel(), MouseListener {
+    private val label = JLabel("启动中..");
+    private val hint = JLabel("点击窗口终止呼叫.");
 
     companion object {
-        private val font = Font("楷体", Font.BOLD, 50);
+        private val font = Deploy.fonts.hwct.deriveFont(Font.BOLD, 40f);
+        private val hintFont = Deploy.fonts.hwct.deriveFont(Font.BOLD, 20f);
     }
 
     init {
-        cornerRadius = 40.0
-        label.toCenter()
-        label.font = Section.font
-        label.isOpaque = true
-        label.background = getColor();
+        label.isOpaque = false;
+        label.font = ContentPane.font;
+        label.toCenter();
         label.setLocation(0, 0)
-        label.foreground = getStringColor()
-        label.addMouseListener(this)
         add(label)
+        hint.isOpaque = false;
+        hint.font = hintFont;
+        hint.toCenter();
+        add(hint)
+        addMouseListener(this)
     }
 
     override fun start() {
         label.size = size;
+        hint.setSize(width, hintFont.size * 2);
+        hint.setLocation(0, height - hint.height - 5);
     }
-    /**
-     * 背景颜色
-     */
-    abstract fun getColor(): Color;
-    /**
-     * 字体内容
-     */
-    abstract fun getString(): String;
-    /**
-     * 字体颜色
-     */
-    abstract fun getStringColor(): Color;
+
+    fun setFontColor(fg: Color) {
+        label.foreground = fg;
+        hint.foreground = fg;
+    }
+
+    fun setString(title: String) {
+        label.text = title
+    }
+
     override fun mouseClicked(e: MouseEvent?) {
-        PositionSelection(this).showFrame();
-        GUI.getMain().frame.isVisible = false;
-        GUI.getMain().windowClosing(null)
+        main.close();
     }
 
     override fun mousePressed(e: MouseEvent?) {

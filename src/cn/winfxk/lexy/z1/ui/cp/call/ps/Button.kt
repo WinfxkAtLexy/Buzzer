@@ -12,61 +12,44 @@
 * Author： Winfxk
 * Created PCUser: kc4064 
 * Web: http://winfxk.com
-* Created Date: 2024/12/6  10:22 */
-package cn.winfxk.lexy.z1.ui.cp.call
+* Created Date: 2024/12/7  10:09 */
+package cn.winfxk.lexy.z1.ui.cp.call.ps
 
 import cn.winfxk.lexy.z1.ui.FilletedPanel
-import cn.winfxk.lexy.z1.ui.GUI
-import cn.winfxk.lexy.z1.ui.cp.call.ps.PositionSelection
+import cn.winfxk.lexy.z1.ui.cp.call.to.Callto
 import cn.winfxk.tool.view.toCenter
-import java.awt.Color
 import java.awt.Font
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import javax.swing.JLabel
 
-abstract class Section() : FilletedPanel(), MouseListener {
-    private val label = JLabel(getString().let {
-        var text = "";
-        for (element in it) text = text + (if (text.isBlank()) "" else "<br>") + element.toString();
-        return@let "<html>$text</html>"
-    });
-
+class Button(val string: String, private val main: ContentPane) : FilletedPanel(), MouseListener {
     companion object {
-        private val font = Font("楷体", Font.BOLD, 50);
+        private val font = Font("楷体", Font.BOLD, 30);
     }
 
+    private val label = JLabel(string);
+
     init {
-        cornerRadius = 40.0
-        label.toCenter()
-        label.font = Section.font
-        label.isOpaque = true
-        label.background = getColor();
+        label.toCenter();
+        label.font = font;
+        label.background = main.select.getColor();
+        label.foreground = main.select.getStringColor();
+        label.text = string;
         label.setLocation(0, 0)
-        label.foreground = getStringColor()
+        label.isOpaque = true;
+        label.font = Button.font;
         label.addMouseListener(this)
-        add(label)
+        add(label);
     }
 
     override fun start() {
         label.size = size;
     }
-    /**
-     * 背景颜色
-     */
-    abstract fun getColor(): Color;
-    /**
-     * 字体内容
-     */
-    abstract fun getString(): String;
-    /**
-     * 字体颜色
-     */
-    abstract fun getStringColor(): Color;
+
     override fun mouseClicked(e: MouseEvent?) {
-        PositionSelection(this).showFrame();
-        GUI.getMain().frame.isVisible = false;
-        GUI.getMain().windowClosing(null)
+        Callto(string, main.select).showFrame();
+        main.close();
     }
 
     override fun mousePressed(e: MouseEvent?) {

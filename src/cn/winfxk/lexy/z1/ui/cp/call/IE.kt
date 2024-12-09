@@ -12,24 +12,17 @@
 * Author： Winfxk
 * Created PCUser: kc4064 
 * Web: http://winfxk.com
-* Created Date: 2024/12/5  17:17 */
-package cn.winfxk.lexy.z1.ui.cp.call.technology
+* Created Date: 2024/12/5  17:19 */
+package cn.winfxk.lexy.z1.ui.cp.call
 
-import cn.winfxk.lexy.z1.ui.cp.call.Section
 import java.awt.Color
 
-/**
- * 工艺
- */
-class Technology : Section() {
+class IE : Section() {
     companion object {
-        private val c = Color(255, 50, 50);
+        private val color = Color(50, 255, 255);
     }
 
-    override fun getColor() = c;
-    override fun getString() = "呼叫工艺"
-    override fun getStringColor(): Color = Color.white;
-    override fun onClick() {
-        println("A")
-    }
+    override fun getColor() = color;
+    override fun getString() = "呼叫设备"
+    override fun getStringColor(): Color = Color.BLACK;
 }
