@@ -16,6 +16,7 @@
 package cn.winfxk.lexy.z1
 
 import cn.winfxk.lexy.z1.client.NettyClient
+import cn.winfxk.lexy.z1.client.message.call.CalltoService
 import cn.winfxk.lexy.z1.tray.MySystemTray
 import cn.winfxk.lexy.z1.ui.GUI
 import cn.winfxk.lexy.z1.ui.mini.Main
@@ -184,6 +185,7 @@ fun main() {
         GUI().also { if (deploy.config.getBoolean("显示用户界面", true)) it.showFrame() else log.i("未开启主界面显示，跳过界面显示") }
         Main().also { if (deploy.config.getBoolean("显示报警图标", true)) it.showWindow() else log.i("未开启报警显示，跳过图标显示") };
         MySystemTray().start();
+        CalltoService().start();
         start.hideFrame(closed = true);
         log.i("客户端已启动并连接到服务器")
     } catch (e: Exception) {

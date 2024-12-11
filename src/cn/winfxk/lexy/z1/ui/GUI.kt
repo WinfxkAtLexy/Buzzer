@@ -41,8 +41,8 @@ class GUI : MyJPanel(), WindowListener, AutoCloseable {
         val backg = Color.white;
         /*        private val width = deploy.config.getInt("width", Tool.getMath(1600, 800, (deploy.screenSize.width / 1.2).toInt()));
                 private val height = deploy.config.getInt("height", Tool.getMath(820, 600, (deploy.screenSize.height / 1.5).toInt()));*/
-        private val width = 900;
-        private val height = 600;
+         val width = 900;
+         val height = 600;
         fun getMain() = main;
     }
 

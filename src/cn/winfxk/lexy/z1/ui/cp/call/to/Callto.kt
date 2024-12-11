@@ -127,11 +127,13 @@ class Callto(private val string: String, private val select: Section) : MyJPanel
         val netty = NettyClient.getMain();
         val json = JSONObject();
         json["to"] = select.getString()
+        json["at"] = select.getType();
         json["type"] = "Call";
         json["string"] = string
         json["title"] = deploy.Title;
         json["date"] = System.currentTimeMillis();
         json["CallID"] = UUID.randomUUID().toString();
+        log.i("呼叫信息: $json")
         var isCall = false;
         val message = "${deploy.Title} ${string}${select.getString()}";
         while (isRunning) {
