@@ -51,11 +51,8 @@ class ContentPane(private val main: CallFrame) : MyJPanel(), Runnable {
         while (main.isRunning()) {
             for (message in ArrayList(CalltoService.getMain().getList().values)) {
                 if (message == null) continue;
-                label.text = message.json.let {
-                    """
-                        ${it["Client"]}呼叫${it["to"]}
-                    """.trimIndent()
-                }
+                label.text = message.json.let { "${it["Client"]}呼叫${it["to"]}" }
+                println(label.text)
                 Tool.sleep(sleep)
             }
             Tool.sleep(sleep)

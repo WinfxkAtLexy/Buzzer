@@ -90,18 +90,7 @@ class NettyClient(private val start: Start) : ChannelInitializer<Channel>(), Aut
             log.i("已连接至服务器[${Deploy.deploy.host}:${Deploy.deploy.port}]！")
             Thread {
                 Tool.sleep(1000);
-                log.i("正在发送客户端上线请求");
-                sendMessage(Message(true, Deploy.deploy.Title, """
-                    {
-                      "Name": "${Deploy.deploy.Name}",
-                      "ID": "${Deploy.deploy.ID}",
-                      "Time": "${Tool.getDate()} ${Tool.getTime()}"
-                    }
-                """.trimIndent().toJson(), MessageType.Request)) {
-                    log.i("客户端上线!")
-                    reconnectCount = 0;
-                    isConnected = true;
-                }
+                sendOnlineMessage();
             }.start()
         } catch (e: Exception) {
             log.w("请求链接失败！！正在尝试重连..")
@@ -109,6 +98,21 @@ class NettyClient(private val start: Start) : ChannelInitializer<Channel>(), Aut
             if (start.isVisible) start.title = "请求链接失败！！正在尝试重连.."
             group.shutdownGracefully();
             reconnect()
+        }
+    }
+
+    fun sendOnlineMessage() {
+        log.i("正在发送客户端上线请求");
+        sendMessage(Message(true, Deploy.deploy.Title, """
+                    {
+                      "Name": "${Deploy.deploy.Name}",
+                      "ID": "${Deploy.deploy.ID}",
+                      "Time": "${Tool.getDate()} ${Tool.getTime()}"
+                    }
+                """.trimIndent().toJson(), MessageType.Request)) {
+            log.i("客户端上线!")
+            reconnectCount = 0;
+            isConnected = true;
         }
     }
 

@@ -31,7 +31,11 @@ class IconView(private val main: GUI) : MyJPanel() {
             main.frame.isVisible = false;
         }
         add(close);
-        setting.setOnClick { SettingUI.getMain().showFrame() }
+        setting.setOnClick {
+            main.windowClosing(null)
+            main.frame.isVisible = false;
+            SettingUI.getMain().showFrame()
+        }
         add(setting)
     }
 

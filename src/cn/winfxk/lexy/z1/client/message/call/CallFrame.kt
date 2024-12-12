@@ -60,6 +60,7 @@ class CallFrame private constructor() : MyJPanel(), AutoCloseable, WindowListene
 
     override fun start() {
         contentPane.size = size;
+        contentPane.start();
     }
 
     fun getFrame() = frame;

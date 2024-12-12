@@ -49,6 +49,7 @@ class Message(private val isSuccess: Boolean = false, private val message: Strin
         json["json"] = this.json;
         json["ID"] = getID();
         json["ClientID"] = Deploy.deploy.ID;
+        json["ClientType"] = Deploy.deploy.ClientType;
         json["ClientName"] = Deploy.deploy.Name;
         return json.toJsonString()
     }

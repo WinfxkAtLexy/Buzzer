@@ -100,5 +100,6 @@ class PositionSelection(private val main: Section) : MyJPanel(), WindowListener,
         log.i("关闭传呼选择窗口")
         frame.isVisible = false;
         frame.dispose();
+        GUI.getMain().showFrame();
     }
 }

@@ -36,8 +36,8 @@ class CallMessage(main: ReceiveMessages) : Handling(main.messageID, main.json) {
             log.i("未知的呼叫Key！跳过处理");
             return Message(isSuccess = false, message = "未知的呼叫Key！跳过处理", json = emptyJson);
         }
-        val ClientID = (json["ClientID"] ?: "").toString();
-        if (ClientID?.equals(Deploy.deploy.ID) == true) return Message(isSuccess = true, message = "跳过本人呼叫")
+        val clientID = (json["ClientID"] ?: "").toString();
+        if (clientID == Deploy.deploy.ID) return Message(isSuccess = true, message = "跳过本人呼叫")
         CalltoService.getMain().addWarning(json);
         return Message(isSuccess = true, "呼叫成功！", json = emptyJson);
     }

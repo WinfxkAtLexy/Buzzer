@@ -15,6 +15,7 @@
 * Created Date: 2024/11/22  09:23 */
 package cn.winfxk.lexy.z1
 
+import cn.winfxk.lexy.z1.log.Logsave
 import cn.winfxk.libk.config.Config
 import cn.winfxk.libk.log.Log
 import cn.winfxk.libk.tool.Tool
@@ -33,7 +34,7 @@ import java.util.*
 class Deploy {
     val toolkit: Toolkit = Toolkit.getDefaultToolkit();
     val screenSize: Dimension = toolkit.screenSize;
-    val defaultDir = File("Buzzer/");
+    val defaultDir = Logsave.defaultDir;
     val config = Config(File(defaultDir, "config.json"))
     private val log = Log(this.javaClass.simpleName)
     var host: String = config.getString("host", "") ?: "";
@@ -62,7 +63,14 @@ class Deploy {
         }
         it;
     };
-
+    var ClientType = config.getString("ClientType").let {
+        if (it.isNullOrBlank()) {
+            val name = "All";
+            config.set("ClientType", name).save();
+            return@let name;
+        }
+        it;
+    }
 
     //图标
     private lateinit var icon: BufferedImage;

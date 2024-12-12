@@ -17,9 +17,11 @@ package cn.winfxk.lexy.z1
 
 import cn.winfxk.lexy.z1.client.NettyClient
 import cn.winfxk.lexy.z1.client.message.call.CalltoService
+import cn.winfxk.lexy.z1.log.Logsave
 import cn.winfxk.lexy.z1.tray.MySystemTray
 import cn.winfxk.lexy.z1.ui.GUI
 import cn.winfxk.lexy.z1.ui.mini.Main
+import cn.winfxk.lexy.z1.ui.setting.SettingUI
 import cn.winfxk.libk.log.Log
 import cn.winfxk.libk.tool.Tool
 import cn.winfxk.libk.tool.tab.Closeable
@@ -140,9 +142,12 @@ class Start(isTop: Boolean = true) : MyJPanel() {
 
 var isRunning = false;
 fun main() {
+    val logsave = Logsave();
+    Log.addListener(logsave);
     Log.i("程序初始化...")
     val log = Log("init");
     try {
+        Thread(logsave).start();
         isRunning = true;
         val start = Start(true);
         start.showFrame();
@@ -186,6 +191,7 @@ fun main() {
         Main().also { if (deploy.config.getBoolean("显示报警图标", true)) it.showWindow() else log.i("未开启报警显示，跳过图标显示") };
         MySystemTray().start();
         CalltoService().start();
+        SettingUI.getMain().start();
         start.hideFrame(closed = true);
         log.i("客户端已启动并连接到服务器")
     } catch (e: Exception) {
@@ -200,5 +206,6 @@ fun close(stste: Int = 0) {
     Log.i("正在结束进程和服务($stste).")
     Closeable.close(Main.getMain(), NettyClient.getMain(), GUI.getMain(), MySystemTray.getMain())
     Log.i("关闭应用程序...")
+    Closeable.close(Logsave.getMain())
     exitProcess(stste)
 }
