@@ -24,22 +24,27 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class ContentPane(private val main: PositionSelection, val select: Section) : MyJPanel(), AutoCloseable {
-    private val list = (Deploy.deploy.config.getStringList("CallButtons", defaultlist) ?: defaultlist).filter { ! it.isNullOrBlank() };
     private val call = ArrayList<Button>();
 
     companion object {
+        private lateinit var main: ContentPane;
         private val itemWidth = BigDecimal(180);
         private val itemX = BigDecimal(20);
-        private val y = 20;
         val defaultlist = listOf("MES", "软管", "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "P10", "P11", "P12", "P13", "P14", "P15", "P16", "P17", "P18");
+        private val list = ArrayList((Deploy.deploy.config.getStringList("CallButtons", defaultlist) ?: defaultlist).filter { ! it.isNullOrBlank() })
+        fun getList() = list;
+        fun setList(list: List<String>) {
+            this.list.clear()
+            this.list.addAll(list)
+        }
     }
 
     init {
+        ContentPane.main = this;
         background = Color.white;
         isOpaque = true;
         list.forEach { item ->
-            if (! item.isNullOrBlank())
-                call.add(Button(item, this))
+            if (! item.isNullOrBlank()) call.add(Button(item, this))
         }
     }
 

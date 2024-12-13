@@ -32,8 +32,8 @@ import java.awt.geom.RoundRectangle2D
 class GUI : MyJPanel(), WindowListener, AutoCloseable {
     val frame = MyJFrame();
     private val log by lazy { Log(this.javaClass.simpleName) }
-    private val cp = ContentPane();
-    private val topView = TopView(this);
+    private val cp: ContentPane;
+    private val topView: TopView
 
     companion object {
         private lateinit var main: GUI;
@@ -47,16 +47,18 @@ class GUI : MyJPanel(), WindowListener, AutoCloseable {
     }
 
     init {
-        log.i("初始化用户界面中..")
         main = this;
+        log.i("初始化用户界面中..")
+        cp = ContentPane();
+        topView = TopView(this);
         frame.iconImage = deploy.getIcon();
         frame.background = backg;
         frame.setSize(GUI.width, GUI.height);
         frame.setLocation((deploy.screenSize.width / 2 - frame.width / 2).coerceAtLeast(0), (deploy.screenSize.height / 2 - frame.height / 2).coerceAtLeast(0));
         frame.contentPane = this;
         frame.isUndecorated = true;
-        frame.defaultCloseOperation = MyJFrame.HIDE_ON_CLOSE;
         frame.addWindowListener(this)
+        frame.defaultCloseOperation = MyJFrame.DO_NOTHING_ON_CLOSE;
         frame.addComponentListener(this)
         frame.isResizable = false;
         frame.title = deploy.Title;

@@ -22,10 +22,8 @@ import cn.winfxk.libk.log.Log
 import cn.winfxk.libk.tool.Tool
 import cn.winfxk.tool.view.MyJFrame
 import cn.winfxk.tool.view.MyJPanel
-import com.sun.awt.AWTUtilities
 import java.awt.event.WindowEvent
 import java.awt.event.WindowListener
-import java.awt.geom.RoundRectangle2D
 
 class SettingUI private constructor() : MyJPanel(), AutoCloseable, WindowListener {
     val log = Log(this.javaClass.simpleName)
@@ -49,15 +47,10 @@ class SettingUI private constructor() : MyJPanel(), AutoCloseable, WindowListene
         frame.setSize(GUI.width, GUI.height);
         frame.setLocation((deploy.screenSize.width / 2 - frame.width / 2).coerceAtLeast(0), (deploy.screenSize.height / 2 - frame.height / 2).coerceAtLeast(0));
         frame.contentPane = this;
-        frame.isUndecorated = true;
-        frame.defaultCloseOperation = MyJFrame.HIDE_ON_CLOSE;
+        frame.defaultCloseOperation = MyJFrame.DO_NOTHING_ON_CLOSE;
         frame.addWindowListener(this)
         frame.addComponentListener(this)
-        frame.isResizable = false;
         frame.title = uiTItle;
-        val w = frame.width.toDouble();
-        val h = frame.height.toDouble();
-        AWTUtilities.setWindowShape(frame, RoundRectangle2D.Double(0.0, 0.0, w, h, 20.0, 20.0))
         topView = Closeview(this)
         topView.setLocation(0, 0);
         add(topView);
@@ -91,8 +84,11 @@ class SettingUI private constructor() : MyJPanel(), AutoCloseable, WindowListene
             frame.isVisible = true;
             log.i("显示设置界面")
             Thread {
-                Tool.sleep(100);
+                Tool.sleep(500);
                 start();
+                updateUI();
+                repaint();
+                revalidate();
             }.start();
         }
         start();

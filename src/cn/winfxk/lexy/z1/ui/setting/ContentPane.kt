@@ -33,6 +33,10 @@ class ContentPane(private val main: SettingUI) : MyJPanel() {
         addItem(TitleSet());
         addItem(ServerSet(this))
         addItem(TypeSet(this))
+        addItem(SizeSet())
+        addItem(ShowSet())
+        addItem(JobSet())
+        addItem(AutosaveSet())
     }
 
     override fun start() {

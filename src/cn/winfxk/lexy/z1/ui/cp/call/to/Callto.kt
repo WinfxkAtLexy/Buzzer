@@ -47,7 +47,7 @@ class Callto(private val string: String, private val select: Section) : MyJPanel
         closeview = Closeview(this);
         contentPane = ContentPane(this);
         frame.iconImage = deploy.getCallIcon();
-        frame.defaultCloseOperation = MyJFrame.EXIT_ON_CLOSE
+        frame.defaultCloseOperation = MyJFrame.DO_NOTHING_ON_CLOSE
         frame.size = GUI.getMain().frame.size;
         frame.isUndecorated = true
         frame.title = tip

@@ -16,6 +16,7 @@
 package cn.winfxk.lexy.z1
 
 import cn.winfxk.lexy.z1.log.Logsave
+import cn.winfxk.lexy.z1.ui.setting.item.AutosaveSet
 import cn.winfxk.libk.config.Config
 import cn.winfxk.libk.log.Log
 import cn.winfxk.libk.tool.Tool
@@ -97,8 +98,11 @@ class Deploy {
         call = this.getImageByjar("Call.png") ?: throwException("无法加载资源：Call.png");
         Thread {
             log.i("配置文件守护服务启动.")
+            var time = 0;
             while (isRunning) {
-                Tool.sleep(600000)
+                Tool.sleep(1000);
+                if (time ++ < AutosaveSet.getAutoSavetime()) continue;
+                time = 0;
                 log.i("正在保存配置文件")
                 config.save();
             }

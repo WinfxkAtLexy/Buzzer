@@ -62,6 +62,7 @@ class Start(isTop: Boolean = true) : MyJPanel() {
         frame.contentPane = this;
         frame.isUndecorated = true;
         frame.type = Window.Type.UTILITY
+        frame.defaultCloseOperation = MyJFrame.DO_NOTHING_ON_CLOSE;
         val w = frame.width.toDouble();
         val h = frame.height.toDouble();
         AWTUtilities.setWindowShape(frame, RoundRectangle2D.Double(0.0, 0.0, w, h, w / 10, h / 10))

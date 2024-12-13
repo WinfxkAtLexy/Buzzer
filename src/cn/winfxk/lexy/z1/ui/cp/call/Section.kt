@@ -31,7 +31,8 @@ abstract class Section() : FilletedPanel(), MouseListener {
         for (element in it) text = text + (if (text.isBlank()) "" else "<br>") + element.toString();
         return@let "<html>$text</html>"
     });
-private val type=javaClass.simpleName;
+    private val type = javaClass.simpleName;
+
     companion object {
         private val font = Font("楷体", Font.BOLD, 50);
     }
@@ -47,7 +48,8 @@ private val type=javaClass.simpleName;
         label.addMouseListener(this)
         add(label)
     }
-fun getType()=type
+
+    fun getType(): String = type
     override fun start() {
         label.size = size;
     }

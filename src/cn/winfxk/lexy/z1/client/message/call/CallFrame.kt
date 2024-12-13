@@ -42,11 +42,11 @@ class CallFrame private constructor() : MyJPanel(), AutoCloseable, WindowListene
         frame.background = backg;
         frame.size = deploy.screenSize;
         frame.setLocation(0, 0);
-        frame.isAlwaysOnTop = true;
+        // frame.isAlwaysOnTop = true;
         frame.contentPane = this;
         frame.isUndecorated = true;
         frame.graphicsConfiguration.device.setFullScreenWindow(frame);
-        frame.defaultCloseOperation = MyJFrame.HIDE_ON_CLOSE;
+        frame.defaultCloseOperation = MyJFrame.DO_NOTHING_ON_CLOSE;
         frame.addWindowListener(this)
         frame.addComponentListener(this)
         frame.isResizable = false;
@@ -76,6 +76,8 @@ class CallFrame private constructor() : MyJPanel(), AutoCloseable, WindowListene
             frame.isVisible = true;
             log.i("显示报警窗口.")
         }
+        isRuning = true;
+        frame.toFront();
         start();
     }
 
@@ -101,5 +103,5 @@ class CallFrame private constructor() : MyJPanel(), AutoCloseable, WindowListene
     override fun windowDeactivated(e: WindowEvent?) {
     }
 
-    fun isRunning() = isRuning && cn.winfxk.lexy.z1.isRunning;
+    fun isRunning() = isRuning;
 }

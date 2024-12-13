@@ -54,7 +54,7 @@ class Logsave : OnLogListener, Runnable, AutoCloseable {
     }
 
     override fun logListener(type: Type, tag: String?, message: Any?, throwable: Throwable?, title: String, context: String) {
-        if (! isClose) writer.write("${Log.clearColor(context) ?: ""}\n");
+        if (! isClose) writer.write("\n${Log.clearColor(context) ?: ""}");
     }
 
     override fun run() {
@@ -79,14 +79,13 @@ class Logsave : OnLogListener, Runnable, AutoCloseable {
         if (! logDir.exists()) logDir.mkdirs();
         val close = writer;
         close.flush();
-        close.close();
         logFile = File(logDir, "${logFormat.format(Date())}.log")
         logFile.parentFile?.also { if (! it.exists() || ! it.isDirectory) if (! it.mkdirs()) log.w("创建日志文件失败") }
         if (! logFile.exists() || ! logFile.isFile) if (logFile.createNewFile())
             log.i("创建一个新日志文件[${logFile.name}]!")
         else log.w("日志文件创建失败[${logFile.name}]！")
         writer = BufferedWriter(FileWriter(logFile, true))
-        log.i("已重置日志文件[${logFile.name}].")
+        close.close();
     }
 
     override fun close() {

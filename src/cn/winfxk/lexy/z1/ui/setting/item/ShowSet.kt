@@ -12,25 +12,36 @@
 * Author： Winfxk
 * Created PCUser: kc4064 
 * Web: http://winfxk.com
-* Created Date: 2024/12/11  15:24 */
+* Created Date: 2024/12/11  15:38 */
 package cn.winfxk.lexy.z1.ui.setting.item
 
-import cn.winfxk.lexy.z1.Deploy
+import cn.winfxk.lexy.z1.ui.setting.item.show.ShowGUI
+import cn.winfxk.lexy.z1.ui.setting.item.show.ShowMini
 import cn.winfxk.libk.config.Config
-import cn.winfxk.tool.view.MyJPanel
-import java.awt.Color
-import java.awt.Font
 
-abstract class BaseItem : MyJPanel() {
-    companion object {
-        val labelFont = Font("楷体", Font.BOLD, 18);
-        val labelColor: Color = Color.black;
-        val deploy = Deploy.deploy;
-        val jg = 4;
-        val lvalueFont = Font("楷体", Font.BOLD, 18);
-        val lvalueColor: Color = Color.blue;
+class ShowSet : BaseItem() {
+    private val mini = ShowMini();
+    private val gui = ShowGUI();
+
+    init {
+        mini.setLocation(0, 0);
+        add(mini);
+        add(gui);
     }
 
-    abstract fun save(config: Config);
-    abstract fun legal(): Boolean;
+    override fun save(config: Config) {
+        mini.save(config);
+        gui.save(config);
+    }
+
+    override fun legal() = mini.legal() && gui.legal();
+
+    override fun start() {
+        val width = this.width / 2;
+        mini.setSize(width, this.height);
+        mini.start();
+        gui.setSize(width, this.height);
+        gui.setLocation(width, 0)
+        gui.start();
+    }
 }
